@@ -23,6 +23,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile.prod
+          file: Dockerfile
           push: true
           tags: arthurgartner/user-wishlist-app:latest
