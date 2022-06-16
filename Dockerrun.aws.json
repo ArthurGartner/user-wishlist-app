@@ -4,52 +4,50 @@
     {
       "environment": [
         {
-          "name": "POSTGRES_USER",
-          "value": "hello_flask"
-        },
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "hello_flask"
-        },
-        {
-          "name": "POSTGRES_DB",
-          "value": "hello_flask_dev"
+          "name": "deployment",
+          "value": "compose"
         }
       ],
       "essential": true,
-      "image": "postgres:12-alpine",
+      "image": "arthurgartner/nala-backend",
       "memory": 100,
-      "mountPoints": [
-        {
-          "containerPath": "/var/lib/postgresql/data/",
-          "sourceVolume": "postgres_data"
-        }
-      ],
-      "name": "db",
+      "name": "backend",
       "portMappings": [
         {
-          "containerPort": 5432,
-          "hostPort": 5432
+          "containerPort": 8081,
+          "hostPort": 8081
         }
       ]
     },
     {
+      "environment": [
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "developer"
+        }
+      ],
       "essential": true,
-      "image": "redis:6.0.8",
+      "image": "arthurgartner/nala-sql",
       "memory": 100,
-      "name": "redis",
+      "name": "sql",
       "portMappings": [
         {
-          "containerPort": 6379,
-          "hostPort": 6379
+          "containerPort": 3306,
+          "hostPort": 3306
         }
       ]
     },
     {
+      "environment": [
+        {
+          "name": "api_url",
+          "value": "http://natl_backend_api:8081/api"
+        }
+      ],
       "essential": true,
-      "links": ["redis", "db"],
+      "links": ["backend", "sql"],
       "name": "web",
-      "image": "arthurgartner/user-wishlist-app",
+      "image": "arthurgartner/nala-frontend",
       "memory": 100,
       "portMappings": [
         {
@@ -57,14 +55,6 @@
           "hostPort": 80
         }
       ]
-    }
-  ],
-  "volumes": [
-    {
-      "host": {
-        "sourcePath": "postgres_data"
-      },
-      "name": "postgres_data"
     }
   ]
 }
