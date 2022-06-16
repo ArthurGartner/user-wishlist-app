@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "environment": [
+        {
+          "name": "deployment",
+          "value": "compose"
+        }
+      ],
+      "essential": true,
+      "image": "arthurgartner/nala-frontend",
+      "memory": 100,
+      "name": "frontend",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+}
