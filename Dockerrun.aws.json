@@ -4,48 +4,11 @@
     {
       "environment": [
         {
-          "name": "deployment",
-          "value": "compose"
-        }
-      ],
-      "essential": true,
-      "image": "arthurgartner/nala-backend",
-      "memory": 100,
-      "name": "backend",
-      "portMappings": [
-        {
-          "containerPort": 8081,
-          "hostPort": 8081
-        }
-      ]
-    },
-    {
-      "environment": [
-        {
-          "name": "MYSQL_ROOT_PASSWORD",
-          "value": "developer"
-        }
-      ],
-      "essential": true,
-      "image": "arthurgartner/nala-sql",
-      "memory": 100,
-      "name": "sql",
-      "portMappings": [
-        {
-          "containerPort": 3306,
-          "hostPort": 3306
-        }
-      ]
-    },
-    {
-      "environment": [
-        {
           "name": "api_url",
           "value": "http://natl_backend_api:8081/api"
         }
       ],
       "essential": true,
-      "links": ["backend", "sql"],
       "name": "web",
       "image": "arthurgartner/nala-frontend",
       "memory": 100,
